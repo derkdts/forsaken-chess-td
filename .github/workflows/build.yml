@@ -27,7 +27,16 @@ jobs:
         if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
-          sudo apt-get install -y             libwebkit2gtk-4.1-dev             build-essential             curl             wget             file             libxdo-dev             libssl-dev             libayatana-appindicator3-dev             librsvg2-dev
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libxdo-dev \
+            libssl-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -40,6 +49,18 @@ jobs:
         uses: swatinem/rust-cache@v2
         with:
           workspaces: './src-tauri -> target'
+      - name: Generate placeholder icon if missing
+        shell: bash
+        run: |
+          if [ ! -f "src-tauri/icons/icon.ico" ]; then
+            node -e "
+              const fs = require('fs');
+              const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
+              fs.writeFileSync('temp-icon.png', png);
+            "
+            npx tauri icon temp-icon.png
+            rm temp-icon.png
+          fi
       - name: Build Tauri application and upload release assets
         uses: tauri-apps/tauri-action@v0
         env:
