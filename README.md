@@ -1,4 +1,3 @@
-```markdown
 # Forsaken Chess (Tower Defense)
 
 Изометрическая игра в жанре Tower Defense на базе **Tauri v2**, **Rust** и **TypeScript**. Защищайте линию обороны с помощью шахматных фигур, которые эволюционируют от Пешки до Ферзя на процедурно генерируемых картах.
@@ -29,6 +28,7 @@ npm run tauri build
 
 ---
 
+
 # Forsaken Chess (Tower Defense) (English)
 
 An isometric Tower Defense game built with **Tauri v2**, **Rust**, and **TypeScript**. Defend your lane using chess pieces that evolve from a Pawn to a Queen across procedurally generated maps.
@@ -55,5 +55,4 @@ npm run tauri dev
 ### Production Build
 ```bash
 npm run tauri build
-```
 ```
